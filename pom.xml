@@ -1,26 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.mulesoft.training</groupId>
-	<artifactId>maven-project</artifactId>
+	<artifactId>m-maven-project</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>mule</packaging>
-	<name>Mule maven-project Application</name>
+	<name>Mule m-maven-project Application</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<mule.version>3.7.2</mule.version>
+		<mule.version>3.9.1</mule.version>
 		<mule.tools.version>1.1</mule.tools.version>
 		<derby.version>10.12.1.1</derby.version>
 		<activemq.version>5.11.3</activemq.version>
+		<cloudhub.domain>m-maven-project.ir-e1.cloudhub.io</cloudhub.domain>
+		<cpu>0.1 vCores</cpu>
 	</properties>
 
 	<build>
 		<plugins>
+
+			<plugin>
+				<groupId>org.mule.tools.maven</groupId>
+				<artifactId>mule-maven-plugin</artifactId>
+				<version>2.2.1</version>
+				<configuration>
+					<deploymentType>cloudhub</deploymentType>
+					<!-- muleVersion is the runtime version as it appears on the CloudHub interface -->
+					<muleVersion>3.9.1</muleVersion>
+					<username>vandyala</username>
+					<password>Studio$819</password>
+					<redeploy>true</redeploy>
+					<environment>Production</environment>
+					<businessGroup>LnD</businessGroup>
+				</configuration>
+				<executions>
+					<execution>
+						<id>deploy</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.mule.tools.maven</groupId>
 				<artifactId>mule-app-maven-plugin</artifactId>
@@ -68,6 +94,14 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>localSnap</id>
+			<name>m-maven-project-1.0.0-SNAPSHOT</name>
+			<url>file:///C:\temp\</url>
+		</repository>
+	</distributionManagement>
 
 	<!-- Mule Dependencies -->
 	<dependencies>
